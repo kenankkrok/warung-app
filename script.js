@@ -21,22 +21,72 @@ const formatRupiah = (number) => {
 };
 
 // ==========================================
-// 3. KOMUNIKASI DENGAN API (FETCH DATA)
+// 3. KOMUNIKASI DENGAN API & FILTER KATEGORI
 // ==========================================
 
-// Mengambil data menu dari Database via API
 async function loadMenu() {
     try {
         const response = await fetch(`${API_BASE_URL}/api/menu`);
         if (!response.ok) throw new Error('Gagal mengambil data menu');
         
         products = await response.json();
-        renderMenuCards(); // Tampilkan ke layar setelah data ditarik
+        
+        // Panggil filter 'semua' sebagai tampilan awal saat web dibuka
+        filterCategory('semua'); 
     } catch (error) {
         console.error("Error loading menu:", error);
-        alert("Gagal memuat menu. Pastikan API Worker sudah berjalan.");
+        document.getElementById('menu-container').innerHTML = '<div class="col-span-3 text-center py-8 text-red-500">Gagal memuat menu. Pastikan API berjalan.</div>';
     }
 }
+
+// Fungsi baru untuk menyortir dan menampilkan menu
+window.filterCategory = function(category) {
+    // 1. Ubah warna tombol kategori yang aktif
+    document.querySelectorAll('.cat-btn').forEach(btn => {
+        if (btn.dataset.cat === category) {
+            // Tombol Aktif (Warna Coklat)
+            btn.className = 'cat-btn w-full min-w-[80px] bg-brand-600 text-white p-3 rounded-2xl flex flex-col items-center shadow-md transition';
+        } else {
+            // Tombol Tidak Aktif (Warna Putih)
+            btn.className = 'cat-btn w-full min-w-[80px] bg-white text-gray-600 hover:bg-brand-50 p-3 rounded-2xl flex flex-col items-center shadow-sm transition';
+        }
+    });
+
+    // 2. Filter data produk
+    const menuContainer = document.getElementById('menu-container');
+    if (!menuContainer) return;
+    
+    menuContainer.innerHTML = ''; // Kosongkan layar
+
+    // Ambil produk yang sesuai kategori (atau tampilkan semua)
+    const filteredProducts = category === 'semua' 
+        ? products 
+        : products.filter(p => p.category === category);
+
+    // Jika kategori kosong
+    if (filteredProducts.length === 0) {
+        menuContainer.innerHTML = '<div class="col-span-3 text-center py-8 text-gray-400">Belum ada menu di kategori ini.</div>';
+        return;
+    }
+
+    // 3. Tampilkan ke layar HTML
+    filteredProducts.forEach(product => {
+        const card = document.createElement('div');
+        card.className = 'bg-white rounded-2xl p-4 shadow-sm hover:shadow-md transition';
+        card.innerHTML = `
+            <img src="${product.image || 'https://via.placeholder.com/400'}" alt="${product.name}" class="w-full h-32 object-cover rounded-xl mb-3">
+            <h4 class="font-semibold text-sm">${product.name}</h4>
+            <p class="text-[10px] text-gray-500 mb-2 capitalize">${product.category}</p>
+            <div class="flex justify-between items-center mt-2">
+                <span class="font-bold text-brand-900">${formatRupiah(product.price)}</span>
+                <button onclick="addToCart(${product.id})" class="bg-brand-600 text-white w-8 h-8 rounded-full flex items-center justify-center hover:bg-brand-800 transition">
+                    <i class="fa-solid fa-plus"></i>
+                </button>
+            </div>
+        `;
+        menuContainer.appendChild(card);
+    });
+};
 
 // Menampilkan produk ke HTML secara dinamis
 function renderMenuCards() {
