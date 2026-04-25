@@ -9,45 +9,26 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script>
         tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: { sans: ['Poppins', 'sans-serif'] },
-                    colors: {
-                        brand: { 50: '#faf6f3', 100: '#f0e6dd', 500: '#c27845', 600: '#b06531', 800: '#5c3a21', 900: '#3d2615' }
-                    }
-                }
-            }
+            theme: { extend: { fontFamily: { sans: ['Poppins', 'sans-serif'] }, colors: { brand: { 50: '#faf6f3', 100: '#f0e6dd', 500: '#c27845', 600: '#b06531', 800: '#5c3a21', 900: '#3d2615' } } } }
         }
     </script>
-    <style>
-        body { background-color: #faf6f3; }
-        .hide-scroll::-webkit-scrollbar { display: none; }
-        .hide-scroll { -ms-overflow-style: none; scrollbar-width: none; }
-    </style>
+    <style> body { background-color: #faf6f3; } .hide-scroll::-webkit-scrollbar { display: none; } .hide-scroll { -ms-overflow-style: none; scrollbar-width: none; } </style>
 </head>
-<body id="section-beranda" class="text-brand-900 font-sans antialiased">
+<body id="section-beranda" class="text-brand-900 font-sans antialiased relative">
 
-    <nav class="bg-white px-8 py-4 flex justify-between items-center shadow-sm sticky top-0 z-50">
+    <nav class="bg-white px-8 py-4 flex justify-between items-center shadow-sm sticky top-0 z-40">
         <div class="flex items-center gap-3">
-            <div class="w-10 h-10 bg-brand-100 rounded-full flex items-center justify-center text-brand-800">
-                <i class="fa-solid fa-utensils"></i>
-            </div>
-            <div>
-                <h1 class="font-bold text-xl leading-tight">Warung<br>Nusantara</h1>
-            </div>
+            <div class="w-10 h-10 bg-brand-100 rounded-full flex items-center justify-center text-brand-800"><i class="fa-solid fa-utensils"></i></div>
+            <h1 class="font-bold text-xl leading-tight">Warung<br>Nusantara</h1>
         </div>
-        
         <div class="hidden md:flex space-x-8 font-medium text-sm text-gray-500">
             <a href="#section-beranda" class="text-brand-600 border-b-2 border-brand-600 pb-1"><i class="fa-solid fa-house mr-2"></i>Beranda</a>
             <a href="#section-menu" class="hover:text-brand-600 transition"><i class="fa-solid fa-bars mr-2"></i>Menu</a>
-            <a href="#" onclick="alert('Halaman Promo belum tersedia.')" class="hover:text-brand-600 transition"><i class="fa-solid fa-tag mr-2"></i>Promo</a>
-            <a href="#" onclick="alert('Riwayat pesanan memerlukan fitur Login (segera hadir).')" class="hover:text-brand-600 transition"><i class="fa-solid fa-clipboard-list mr-2"></i>Pesanan</a>
-            <a href="#" onclick="alert('Warung Nusantara berdiri sejak 2026!')" class="hover:text-brand-600 transition"><i class="fa-regular fa-circle-user mr-2"></i>Tentang Kami</a>
+            <button onclick="openModal('modal-promo')" class="hover:text-brand-600 transition"><i class="fa-solid fa-tag mr-2"></i>Promo</button>
+            <button onclick="openModal('modal-pesanan')" class="hover:text-brand-600 transition"><i class="fa-solid fa-clipboard-list mr-2"></i>Pesanan Saya</button>
         </div>
-
-        <button onclick="document.getElementById('cart-widget').scrollIntoView({behavior: 'smooth'})" class="bg-white border border-gray-200 px-4 py-2 rounded-full flex items-center gap-2 hover:bg-gray-50 transition cursor-pointer">
-            <i class="fa-solid fa-cart-shopping"></i> Keranjang 
-            <span class="cart-badge bg-brand-600 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">0</span>
+        <button onclick="document.getElementById('cart-widget').scrollIntoView({behavior: 'smooth'})" class="bg-white border border-gray-200 px-4 py-2 rounded-full flex items-center gap-2 hover:bg-gray-50 transition">
+            <i class="fa-solid fa-cart-shopping"></i> Keranjang <span class="cart-badge bg-brand-600 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">0</span>
         </button>
     </nav>
 
@@ -60,111 +41,82 @@
                 <div class="relative z-10 max-w-sm">
                     <h2 class="text-3xl md:text-4xl font-bold mb-4 leading-tight">Masakan Rumahan<br>Rasa Istimewa</h2>
                     <p class="text-gray-200 text-sm mb-8">Dimasak setiap hari dengan bahan segar pilihan.</p>
-                    <a href="#section-menu" class="inline-flex bg-brand-600 hover:bg-brand-500 text-white px-6 py-3 rounded-xl font-medium transition items-center gap-2">
-                        Pesan Sekarang <i class="fa-solid fa-chevron-right text-sm"></i>
-                    </a>
+                    <a href="#section-menu" class="inline-flex bg-brand-600 hover:bg-brand-500 text-white px-6 py-3 rounded-xl font-medium transition items-center gap-2">Pesan Sekarang <i class="fa-solid fa-chevron-right text-sm"></i></a>
                 </div>
             </div>
 
             <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                <a href="#section-menu" class="bg-white p-4 rounded-2xl flex flex-col items-center justify-center text-center shadow-sm hover:shadow-md transition cursor-pointer">
+                <a href="#section-menu" class="bg-white p-4 rounded-2xl flex flex-col items-center justify-center text-center shadow-sm hover:shadow-md transition">
                     <div class="w-12 h-12 bg-brand-50 text-brand-600 rounded-full flex items-center justify-center text-xl mb-3"><i class="fa-solid fa-bell-concierge"></i></div>
-                    <h3 class="font-semibold text-sm">Pesan Sekarang</h3>
-                    <p class="text-[10px] text-gray-400 mt-1">Pilih & pesan favoritmu</p>
+                    <h3 class="font-semibold text-sm">Pesan Sekarang</h3><p class="text-[10px] text-gray-400 mt-1">Pilih & pesan favoritmu</p>
                 </a>
-                <div onclick="alert('Layanan antar saat ini hanya radius 5KM.')" class="bg-white p-4 rounded-2xl flex flex-col items-center justify-center text-center shadow-sm hover:shadow-md transition cursor-pointer">
-                    <div class="w-12 h-12 bg-brand-50 text-brand-600 rounded-full flex items-center justify-center text-xl mb-3"><i class="fa-solid fa-motorcycle"></i></div>
-                    <h3 class="font-semibold text-sm">Delivery</h3>
-                    <p class="text-[10px] text-gray-400 mt-1">Diantar cepat & aman</p>
-                </div>
-                <div onclick="alert('Silakan ambil pesanan Anda ke meja kasir.')" class="bg-white p-4 rounded-2xl flex flex-col items-center justify-center text-center shadow-sm hover:shadow-md transition cursor-pointer">
-                    <div class="w-12 h-12 bg-brand-50 text-brand-600 rounded-full flex items-center justify-center text-xl mb-3"><i class="fa-solid fa-store"></i></div>
-                    <h3 class="font-semibold text-sm">Ambil di Warung</h3>
-                    <p class="text-[10px] text-gray-400 mt-1">Ambil pesanan langsung</p>
-                </div>
-                <div onclick="alert('Login untuk melihat menu favorit (segera hadir).')" class="bg-white p-4 rounded-2xl flex flex-col items-center justify-center text-center shadow-sm hover:shadow-md transition cursor-pointer">
-                    <div class="w-12 h-12 bg-brand-50 text-brand-600 rounded-full flex items-center justify-center text-xl mb-3"><i class="fa-solid fa-heart"></i></div>
-                    <h3 class="font-semibold text-sm">Menu Favorit</h3>
-                    <p class="text-[10px] text-gray-400 mt-1">Lihat menu favoritmu</p>
-                </div>
+                <button onclick="openModal('modal-promo')" class="bg-white p-4 rounded-2xl flex flex-col items-center justify-center text-center shadow-sm hover:shadow-md transition">
+                    <div class="w-12 h-12 bg-brand-50 text-brand-600 rounded-full flex items-center justify-center text-xl mb-3"><i class="fa-solid fa-tag"></i></div>
+                    <h3 class="font-semibold text-sm">Klaim Promo</h3><p class="text-[10px] text-gray-400 mt-1">Diskon 20% hari ini</p>
+                </button>
+                <button onclick="openModal('modal-pesanan')" class="bg-white p-4 rounded-2xl flex flex-col items-center justify-center text-center shadow-sm hover:shadow-md transition">
+                    <div class="w-12 h-12 bg-brand-50 text-brand-600 rounded-full flex items-center justify-center text-xl mb-3"><i class="fa-solid fa-clock-rotate-left"></i></div>
+                    <h3 class="font-semibold text-sm">Riwayat</h3><p class="text-[10px] text-gray-400 mt-1">Cek status pesanan</p>
+                </button>
+                <button onclick="filterCategory('favorit'); document.getElementById('section-menu').scrollIntoView({behavior: 'smooth'})" class="bg-white p-4 rounded-2xl flex flex-col items-center justify-center text-center shadow-sm hover:shadow-md transition cursor-pointer">
+                    <div class="w-12 h-12 bg-red-50 text-red-500 rounded-full flex items-center justify-center text-xl mb-3"><i class="fa-solid fa-heart"></i></div>
+                    <h3 class="font-semibold text-sm">Menu Favorit</h3><p class="text-[10px] text-gray-400 mt-1">Disukai oleh Anda</p>
+                </button>
             </div>
 
             <div id="section-menu" class="pt-4">
-                <div class="flex justify-between items-center mb-4">
-                    <h3 class="font-bold text-lg">Kategori Menu</h3>
-                </div>
                 <div class="flex gap-4 overflow-x-auto hide-scroll pb-2">
-                    <button onclick="filterCategory('semua')" data-cat="semua" class="cat-btn w-full min-w-[80px] bg-brand-600 text-white p-3 rounded-2xl flex flex-col items-center shadow-md transition">
-                        <i class="fa-solid fa-utensils text-2xl mb-2"></i><span class="text-xs font-medium">Semua</span>
-                    </button>
-                    <button onclick="filterCategory('nasi')" data-cat="nasi" class="cat-btn w-full min-w-[80px] bg-white text-gray-600 hover:bg-brand-50 p-3 rounded-2xl flex flex-col items-center shadow-sm transition">
-                        <i class="fa-solid fa-bowl-rice text-2xl mb-2"></i><span class="text-xs font-medium">Nasi</span>
-                    </button>
-                    <button onclick="filterCategory('ayam')" data-cat="ayam" class="cat-btn w-full min-w-[80px] bg-white text-gray-600 hover:bg-brand-50 p-3 rounded-2xl flex flex-col items-center shadow-sm transition">
-                        <i class="fa-solid fa-drumstick-bite text-2xl mb-2"></i><span class="text-xs font-medium">Ayam</span>
-                    </button>
-                    <button onclick="filterCategory('sayur')" data-cat="sayur" class="cat-btn w-full min-w-[80px] bg-white text-gray-600 hover:bg-brand-50 p-3 rounded-2xl flex flex-col items-center shadow-sm transition">
-                        <i class="fa-solid fa-leaf text-2xl mb-2"></i><span class="text-xs font-medium">Sayur</span>
-                    </button>
-                    <button onclick="filterCategory('minuman')" data-cat="minuman" class="cat-btn w-full min-w-[80px] bg-white text-gray-600 hover:bg-brand-50 p-3 rounded-2xl flex flex-col items-center shadow-sm transition">
-                        <i class="fa-solid fa-glass-water text-2xl mb-2"></i><span class="text-xs font-medium">Minuman</span>
-                    </button>
+                    <button onclick="filterCategory('semua')" data-cat="semua" class="cat-btn w-full min-w-[80px] bg-brand-600 text-white p-3 rounded-2xl flex flex-col items-center shadow-md"><i class="fa-solid fa-utensils text-2xl mb-2"></i><span class="text-xs font-medium">Semua</span></button>
+                    <button onclick="filterCategory('nasi')" data-cat="nasi" class="cat-btn w-full min-w-[80px] bg-white text-gray-600 p-3 rounded-2xl flex flex-col items-center shadow-sm"><i class="fa-solid fa-bowl-rice text-2xl mb-2"></i><span class="text-xs font-medium">Nasi</span></button>
+                    <button onclick="filterCategory('ayam')" data-cat="ayam" class="cat-btn w-full min-w-[80px] bg-white text-gray-600 p-3 rounded-2xl flex flex-col items-center shadow-sm"><i class="fa-solid fa-drumstick-bite text-2xl mb-2"></i><span class="text-xs font-medium">Ayam</span></button>
+                    <button onclick="filterCategory('sayur')" data-cat="sayur" class="cat-btn w-full min-w-[80px] bg-white text-gray-600 p-3 rounded-2xl flex flex-col items-center shadow-sm"><i class="fa-solid fa-leaf text-2xl mb-2"></i><span class="text-xs font-medium">Sayur</span></button>
+                    <button onclick="filterCategory('minuman')" data-cat="minuman" class="cat-btn w-full min-w-[80px] bg-white text-gray-600 p-3 rounded-2xl flex flex-col items-center shadow-sm"><i class="fa-solid fa-glass-water text-2xl mb-2"></i><span class="text-xs font-medium">Minuman</span></button>
                 </div>
             </div>
 
-            <div>
-                <div class="flex justify-between items-center mb-4">
-                    <h3 class="font-bold text-lg">Menu Pilihan</h3>
-                </div>
-                <div id="menu-container" class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    </div>
-            </div>
-
+            <div id="menu-container" class="grid grid-cols-1 md:grid-cols-3 gap-6"></div>
         </div>
 
         <div class="w-full lg:w-1/3 space-y-6">
-            
             <div id="cart-widget" class="bg-white rounded-3xl p-6 shadow-sm">
                 <div class="flex justify-between items-center mb-6">
                     <h3 class="font-bold text-lg">Keranjang Anda</h3>
                     <span class="cart-badge bg-brand-600 text-white text-xs px-2 py-1 rounded-full">0</span>
                 </div>
                 <div id="cart-items" class="space-y-4 mb-6"></div>
-                <div class="border-t border-gray-100 pt-4 mb-6">
-                    <div class="flex justify-between items-center">
-                        <span class="text-sm text-gray-500">Subtotal</span>
-                        <span id="cart-subtotal" class="font-bold text-lg">Rp0</span>
-                    </div>
+                <div class="border-t border-gray-100 pt-4 mb-6 flex justify-between items-center">
+                    <span class="text-sm text-gray-500">Subtotal</span><span id="cart-subtotal" class="font-bold text-lg">Rp0</span>
                 </div>
-                <button id="btn-checkout" onclick="processCheckout()" class="w-full bg-brand-600 hover:bg-brand-500 text-white font-medium py-3 rounded-xl transition">
-                    Proses Pesanan <i class="fa-solid fa-chevron-right ml-2 text-xs"></i>
-                </button>
+                <button onclick="processCheckout()" id="btn-checkout" class="w-full bg-brand-600 hover:bg-brand-500 text-white font-medium py-3 rounded-xl transition">Proses Pesanan <i class="fa-solid fa-chevron-right ml-2 text-xs"></i></button>
             </div>
+        </div>
+    </div>
 
-            <div class="bg-white rounded-3xl p-6 shadow-sm space-y-4">
-                <div class="flex gap-4 items-start">
-                    <div class="w-10 h-10 rounded-full bg-gray-50 flex items-center justify-center text-gray-500 shrink-0"><i class="fa-regular fa-clock"></i></div>
-                    <div>
-                        <h4 class="text-sm font-semibold">Jam Buka</h4>
-                        <p class="text-xs text-gray-500 mt-1">07.00 - 21.00 WIB</p>
-                    </div>
+    <div id="modal-pesanan" class="hidden fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl w-full max-w-md shadow-2xl overflow-hidden transform transition-all">
+            <div class="bg-brand-50 px-6 py-4 border-b border-brand-100 flex justify-between items-center">
+                <h3 class="font-bold text-lg text-brand-900"><i class="fa-solid fa-receipt mr-2"></i>Pesanan Saya</h3>
+                <button onclick="closeModal('modal-pesanan')" class="text-gray-400 hover:text-red-500 text-xl"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="p-6 max-h-[60vh] overflow-y-auto hide-scroll" id="history-container">
                 </div>
-                <div class="flex gap-4 items-start">
-                    <div class="w-10 h-10 rounded-full bg-gray-50 flex items-center justify-center text-gray-500 shrink-0"><i class="fa-solid fa-location-dot"></i></div>
-                    <div>
-                        <h4 class="text-sm font-semibold">Lokasi Kami</h4>
-                        <p class="text-xs text-gray-500 mt-1">Jl. Nusantara No. 123,<br>Kota Anda</p>
-                    </div>
-                </div>
-                <div class="flex gap-4 items-start">
-                    <div class="w-10 h-10 rounded-full bg-gray-50 flex items-center justify-center text-gray-500 shrink-0"><i class="fa-solid fa-shield-halved"></i></div>
-                    <div>
-                        <h4 class="text-sm font-semibold">Pembayaran Aman</h4>
-                        <p class="text-xs text-gray-500 mt-1">Transaksi aman & nyaman</p>
-                    </div>
+        </div>
+    </div>
+
+    <div id="modal-promo" class="hidden fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+        <div class="bg-brand-900 rounded-3xl w-full max-w-md shadow-2xl overflow-hidden relative">
+            <button onclick="closeModal('modal-promo')" class="absolute top-4 right-4 text-white hover:text-gray-300 text-xl z-10"><i class="fa-solid fa-xmark"></i></button>
+            <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=800&q=80" class="w-full h-48 object-cover opacity-50">
+            <div class="absolute inset-0 bg-gradient-to-t from-brand-900 to-transparent"></div>
+            <div class="p-8 text-center relative -mt-20">
+                <div class="inline-block bg-yellow-400 text-brand-900 font-bold text-3xl px-6 py-2 rounded-2xl shadow-lg mb-4 transform -rotate-2">DISKON 20%</div>
+                <h3 class="text-white font-bold text-xl mb-2">Promo Spesial Hari Ini!</h3>
+                <p class="text-brand-100 text-sm mb-6">Nikmati diskon 20% untuk semua menu tanpa minimum pembelian. Berlaku dari jam 10.00 - 14.00 WIB setiap hari.</p>
+                <div class="bg-white/10 border border-white/20 rounded-xl p-4 text-white">
+                    <p class="text-xs text-brand-100 mb-1">Gunakan kode voucher saat di kasir:</p>
+                    <p class="font-mono font-bold tracking-widest text-lg">MAKANENAK20</p>
                 </div>
             </div>
-
         </div>
     </div>
 
