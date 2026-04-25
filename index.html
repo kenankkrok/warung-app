@@ -1,205 +1,274 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Warung Nusantara</title>
-
-<style>
-/* RESET */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: system-ui;
-}
-
-body {
-  background: #f5f5f5;
-}
-
-/* HEADER */
-.header {
-  background: #ff5e00;
-  color: white;
-  padding: 15px;
-  text-align: center;
-  font-weight: bold;
-  position: sticky;
-  top: 0;
-}
-
-.cart-icon {
-  position: absolute;
-  right: 15px;
-  top: 15px;
-  cursor: pointer;
-}
-
-/* MENU */
-.menu {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 15px;
-  padding: 15px;
-}
-
-/* CARD */
-.card {
-  background: white;
-  border-radius: 20px;
-  overflow: hidden;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.08);
-}
-
-.card img {
-  width: 100%;
-  height: 160px;
-  object-fit: cover;
-}
-
-.card h3 {
-  margin: 10px;
-}
-
-.card p {
-  margin: 0 10px;
-  color: #666;
-}
-
-.card button {
-  margin: 10px;
-  width: calc(100% - 20px);
-  padding: 12px;
-  border: none;
-  background: linear-gradient(135deg, #ff5e00, #ff7a00);
-  color: white;
-  border-radius: 12px;
-  font-weight: bold;
-  cursor: pointer;
-}
-
-/* CART PANEL */
-.cart-panel {
-  position: fixed;
-  bottom: -100%;
-  left: 0;
-  width: 100%;
-  background: white;
-  padding: 20px;
-  border-radius: 20px 20px 0 0;
-  transition: 0.3s;
-  box-shadow: 0 -5px 20px rgba(0,0,0,0.2);
-}
-
-.cart-panel.active {
-  bottom: 0;
-}
-
-.cart-item {
-  display: flex;
-  justify-content: space-between;
-  margin: 10px 0;
-}
-
-/* BUTTON */
-.checkout {
-  width: 100%;
-  padding: 12px;
-  border: none;
-  background: #ff5e00;
-  color: white;
-  border-radius: 10px;
-  margin-top: 10px;
-}
-
-/* RESPONSIVE */
-@media (min-width: 600px) {
-  .menu {
-    grid-template-columns: 1fr 1fr;
-  }
-}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Warung Nusantara - Masakan Rumahan</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Poppins', 'sans-serif'] },
+                    colors: {
+                        brand: {
+                            50: '#faf6f3',
+                            100: '#f0e6dd',
+                            500: '#c27845',
+                            600: '#b06531',
+                            800: '#5c3a21',
+                            900: '#3d2615',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { background-color: #faf6f3; }
+        /* Custom scrollbar for horizontal lists */
+        .hide-scroll::-webkit-scrollbar { display: none; }
+        .hide-scroll { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
 </head>
+<body class="text-brand-900 font-sans antialiased">
 
-<body>
+    <nav class="bg-white px-8 py-4 flex justify-between items-center shadow-sm sticky top-0 z-50">
+        <div class="flex items-center gap-3">
+            <div class="w-10 h-10 bg-brand-100 rounded-full flex items-center justify-center text-brand-800">
+                <i class="fa-solid fa-utensils"></i>
+            </div>
+            <div>
+                <h1 class="font-bold text-xl leading-tight">Warung<br>Nusantara</h1>
+            </div>
+        </div>
+        
+        <div class="hidden md:flex space-x-8 font-medium text-sm text-gray-500">
+            <a href="#" class="text-brand-600 border-b-2 border-brand-600 pb-1"><i class="fa-solid fa-house mr-2"></i>Beranda</a>
+            <a href="#" class="hover:text-brand-600 transition"><i class="fa-solid fa-bars mr-2"></i>Menu</a>
+            <a href="#" class="hover:text-brand-600 transition"><i class="fa-solid fa-tag mr-2"></i>Promo</a>
+            <a href="#" class="hover:text-brand-600 transition"><i class="fa-solid fa-clipboard-list mr-2"></i>Pesanan</a>
+            <a href="#" class="hover:text-brand-600 transition"><i class="fa-regular fa-circle-user mr-2"></i>Tentang Kami</a>
+        </div>
 
-<header class="header">
-  🍳 Warung Nusantara
-  <span class="cart-icon" onclick="toggleCart()">🛒 <span id="count">0</span></span>
-</header>
+        <button class="bg-white border border-gray-200 px-4 py-2 rounded-full flex items-center gap-2 hover:bg-gray-50 transition">
+            <i class="fa-solid fa-cart-shopping"></i> Keranjang 
+            <span class="bg-brand-600 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">3</span>
+        </button>
+    </nav>
 
-<section class="menu">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex flex-col lg:flex-row gap-8">
+        
+        <div class="w-full lg:w-2/3 space-y-8">
+            
+            <div class="relative rounded-3xl overflow-hidden bg-brand-900 text-white p-8 md:p-12 shadow-lg" style="background-image: url('https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?auto=format&fit=crop&q=80&w=1000'); background-size: cover; background-position: center;">
+                <div class="absolute inset-0 bg-gradient-to-r from-black/80 to-transparent"></div>
+                <div class="relative z-10 max-w-sm">
+                    <h2 class="text-3xl md:text-4xl font-bold mb-4 leading-tight">Masakan Rumahan<br>Rasa Istimewa</h2>
+                    <p class="text-gray-200 text-sm mb-8">Dimasak setiap hari dengan bahan segar pilihan.</p>
+                    <button class="bg-brand-600 hover:bg-brand-500 text-white px-6 py-3 rounded-xl font-medium transition flex items-center gap-2">
+                        Pesan Sekarang <i class="fa-solid fa-chevron-right text-sm"></i>
+                    </button>
+                    
+                    <div class="flex gap-4 mt-8 text-xs text-gray-300">
+                        <div class="flex items-center gap-2"><i class="fa-solid fa-leaf text-green-400"></i> Bahan Segar</div>
+                        <div class="flex items-center gap-2"><i class="fa-solid fa-tag text-yellow-400"></i> Harga Bersahabat</div>
+                    </div>
+                </div>
+            </div>
 
-  <div class="card">
-    <img src="https://images.unsplash.com/photo-1604908554165-e3b5f5c6f8e2?w=400">
-    <h3>Nasi Goreng</h3>
-    <p>Rp 20.000</p>
-    <button onclick="addToCart('Nasi Goreng',20000)">Tambah</button>
-  </div>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div class="bg-white p-4 rounded-2xl flex flex-col items-center justify-center text-center shadow-sm hover:shadow-md transition cursor-pointer">
+                    <div class="w-12 h-12 bg-brand-50 text-brand-600 rounded-full flex items-center justify-center text-xl mb-3"><i class="fa-solid fa-bell-concierge"></i></div>
+                    <h3 class="font-semibold text-sm">Pesan Sekarang</h3>
+                    <p class="text-[10px] text-gray-400 mt-1">Pilih & pesan favoritmu</p>
+                </div>
+                <div class="bg-white p-4 rounded-2xl flex flex-col items-center justify-center text-center shadow-sm hover:shadow-md transition cursor-pointer">
+                    <div class="w-12 h-12 bg-brand-50 text-brand-600 rounded-full flex items-center justify-center text-xl mb-3"><i class="fa-solid fa-motorcycle"></i></div>
+                    <h3 class="font-semibold text-sm">Delivery</h3>
+                    <p class="text-[10px] text-gray-400 mt-1">Diantar cepat & aman</p>
+                </div>
+                <div class="bg-white p-4 rounded-2xl flex flex-col items-center justify-center text-center shadow-sm hover:shadow-md transition cursor-pointer">
+                    <div class="w-12 h-12 bg-brand-50 text-brand-600 rounded-full flex items-center justify-center text-xl mb-3"><i class="fa-solid fa-store"></i></div>
+                    <h3 class="font-semibold text-sm">Ambil di Warung</h3>
+                    <p class="text-[10px] text-gray-400 mt-1">Ambil pesanan langsung</p>
+                </div>
+                <div class="bg-white p-4 rounded-2xl flex flex-col items-center justify-center text-center shadow-sm hover:shadow-md transition cursor-pointer">
+                    <div class="w-12 h-12 bg-brand-50 text-brand-600 rounded-full flex items-center justify-center text-xl mb-3"><i class="fa-solid fa-heart"></i></div>
+                    <h3 class="font-semibold text-sm">Menu Favorit</h3>
+                    <p class="text-[10px] text-gray-400 mt-1">Lihat menu favoritmu</p>
+                </div>
+            </div>
 
-  <div class="card">
-    <img src="https://images.unsplash.com/photo-1604908176997-431b6c64f0b4?w=400">
-    <h3>Ayam Penyet</h3>
-    <p>Rp 22.000</p>
-    <button onclick="addToCart('Ayam Penyet',22000)">Tambah</button>
-  </div>
+            <div>
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="font-bold text-lg">Kategori Menu</h3>
+                    <a href="#" class="text-brand-600 text-sm font-medium hover:underline">Lihat Semua</a>
+                </div>
+                <div class="flex gap-4 overflow-x-auto hide-scroll pb-2">
+                    <button class="min-w-[80px] bg-brand-600 text-white p-3 rounded-2xl flex flex-col items-center shadow-md">
+                        <i class="fa-solid fa-utensils text-2xl mb-2"></i>
+                        <span class="text-xs font-medium">Semua</span>
+                    </button>
+                    <button class="min-w-[80px] bg-white text-gray-600 hover:bg-brand-50 p-3 rounded-2xl flex flex-col items-center shadow-sm transition">
+                        <i class="fa-solid fa-bowl-rice text-2xl mb-2"></i>
+                        <span class="text-xs font-medium">Nasi</span>
+                    </button>
+                    <button class="min-w-[80px] bg-white text-gray-600 hover:bg-brand-50 p-3 rounded-2xl flex flex-col items-center shadow-sm transition">
+                        <i class="fa-solid fa-drumstick-bite text-2xl mb-2"></i>
+                        <span class="text-xs font-medium">Ayam</span>
+                    </button>
+                    <button class="min-w-[80px] bg-white text-gray-600 hover:bg-brand-50 p-3 rounded-2xl flex flex-col items-center shadow-sm transition">
+                        <i class="fa-solid fa-leaf text-2xl mb-2"></i>
+                        <span class="text-xs font-medium">Sayur</span>
+                    </button>
+                    <button class="min-w-[80px] bg-white text-gray-600 hover:bg-brand-50 p-3 rounded-2xl flex flex-col items-center shadow-sm transition">
+                        <i class="fa-solid fa-glass-water text-2xl mb-2"></i>
+                        <span class="text-xs font-medium">Minuman</span>
+                    </button>
+                </div>
+            </div>
 
-</section>
+            <div>
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="font-bold text-lg">Menu Pilihan</h3>
+                    <a href="#" class="text-brand-600 text-sm font-medium hover:underline">Lihat Semua</a>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="bg-white rounded-2xl p-4 shadow-sm hover:shadow-md transition">
+                        <img src="https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?auto=format&fit=crop&w=400&q=80" alt="Nasi Ayam" class="w-full h-32 object-cover rounded-xl mb-3">
+                        <h4 class="font-semibold text-sm">Nasi Ayam Penyet</h4>
+                        <p class="text-[10px] text-brand-600 mb-2"><i class="fa-solid fa-fire text-red-500"></i> Favorit</p>
+                        <div class="flex justify-between items-center mt-2">
+                            <span class="font-bold text-brand-900">Rp22.000</span>
+                            <button class="bg-brand-600 text-white w-8 h-8 rounded-full flex items-center justify-center hover:bg-brand-800 transition">
+                                <i class="fa-solid fa-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="bg-white rounded-2xl p-4 shadow-sm hover:shadow-md transition">
+                        <img src="https://images.unsplash.com/photo-1512058564366-18510be2db19?auto=format&fit=crop&w=400&q=80" alt="Nasi Goreng" class="w-full h-32 object-cover rounded-xl mb-3">
+                        <h4 class="font-semibold text-sm">Nasi Goreng Spesial</h4>
+                        <p class="text-[10px] text-brand-600 mb-2"><i class="fa-solid fa-fire text-red-500"></i> Favorit</p>
+                        <div class="flex justify-between items-center mt-2">
+                            <span class="font-bold text-brand-900">Rp20.000</span>
+                            <button class="bg-brand-600 text-white w-8 h-8 rounded-full flex items-center justify-center hover:bg-brand-800 transition">
+                                <i class="fa-solid fa-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="bg-white rounded-2xl p-4 shadow-sm hover:shadow-md transition">
+                        <img src="https://images.unsplash.com/photo-1548943487-a2e4f43b4850?auto=format&fit=crop&w=400&q=80" alt="Sayur Asem" class="w-full h-32 object-cover rounded-xl mb-3">
+                        <h4 class="font-semibold text-sm">Sayur Asem</h4>
+                        <p class="text-[10px] text-transparent mb-2">.</p> <div class="flex justify-between items-center mt-2">
+                            <span class="font-bold text-brand-900">Rp10.000</span>
+                            <button class="bg-brand-600 text-white w-8 h-8 rounded-full flex items-center justify-center hover:bg-brand-800 transition">
+                                <i class="fa-solid fa-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-<!-- CART -->
-<div class="cart-panel" id="cart">
-  <h3>Keranjang</h3>
-  <div id="items"></div>
-  <h4>Total: Rp <span id="total">0</span></h4>
-  <button class="checkout" onclick="checkout()">Checkout</button>
-</div>
+        </div>
 
-<script>
-let cart = [];
+        <div class="w-full lg:w-1/3 space-y-6">
+            
+            <div class="bg-white rounded-3xl p-6 shadow-sm">
+                <div class="flex justify-between items-center mb-6">
+                    <h3 class="font-bold text-lg">Keranjang Anda</h3>
+                    <span class="bg-brand-600 text-white text-xs px-2 py-1 rounded-full">3</span>
+                </div>
 
-function addToCart(name, price) {
-  cart.push({ name, price });
-  updateCart();
-}
+                <div class="space-y-4 mb-6">
+                    <div class="flex items-center gap-3">
+                        <img src="https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?auto=format&fit=crop&w=100&q=80" alt="Food" class="w-12 h-12 rounded-lg object-cover">
+                        <div class="flex-1">
+                            <h4 class="text-sm font-semibold">Nasi Ayam Penyet</h4>
+                            <p class="text-xs text-gray-500">Rp22.000</p>
+                        </div>
+                        <div class="flex items-center gap-2 text-sm">
+                            <button class="w-6 h-6 rounded bg-gray-100 flex items-center justify-center text-gray-600">-</button>
+                            <span>1</span>
+                            <button class="w-6 h-6 rounded bg-gray-100 flex items-center justify-center text-gray-600">+</button>
+                        </div>
+                        <button class="text-gray-400 hover:text-red-500 ml-2"><i class="fa-regular fa-trash-can"></i></button>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <img src="https://images.unsplash.com/photo-1546069901-ba9590a1a70c?auto=format&fit=crop&w=100&q=80" alt="Food" class="w-12 h-12 rounded-lg object-cover">
+                        <div class="flex-1">
+                            <h4 class="text-sm font-semibold">Ayam Goreng Kmpng</h4>
+                            <p class="text-xs text-gray-500">Rp18.000</p>
+                        </div>
+                        <div class="flex items-center gap-2 text-sm">
+                            <button class="w-6 h-6 rounded bg-gray-100 flex items-center justify-center text-gray-600">-</button>
+                            <span>1</span>
+                            <button class="w-6 h-6 rounded bg-gray-100 flex items-center justify-center text-gray-600">+</button>
+                        </div>
+                        <button class="text-gray-400 hover:text-red-500 ml-2"><i class="fa-regular fa-trash-can"></i></button>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <img src="https://images.unsplash.com/photo-1556679343-c7306c1976bc?auto=format&fit=crop&w=100&q=80" alt="Drink" class="w-12 h-12 rounded-lg object-cover">
+                        <div class="flex-1">
+                            <h4 class="text-sm font-semibold">Es Teh Manis</h4>
+                            <p class="text-xs text-gray-500">Rp5.000</p>
+                        </div>
+                        <div class="flex items-center gap-2 text-sm">
+                            <button class="w-6 h-6 rounded bg-gray-100 flex items-center justify-center text-gray-600">-</button>
+                            <span>1</span>
+                            <button class="w-6 h-6 rounded bg-gray-100 flex items-center justify-center text-gray-600">+</button>
+                        </div>
+                        <button class="text-gray-400 hover:text-red-500 ml-2"><i class="fa-regular fa-trash-can"></i></button>
+                    </div>
+                </div>
 
-function updateCart() {
-  document.getElementById("count").innerText = cart.length;
+                <div class="border-t border-gray-100 pt-4 mb-6">
+                    <div class="flex justify-between items-center">
+                        <span class="text-sm text-gray-500">Subtotal (3 item)</span>
+                        <span class="font-bold text-lg">Rp45.000</span>
+                    </div>
+                </div>
 
-  let html = "";
-  let total = 0;
+                <button class="w-full bg-brand-600 hover:bg-brand-500 text-white font-medium py-3 rounded-xl transition">
+                    Lihat Keranjang <i class="fa-solid fa-chevron-right ml-2 text-xs"></i>
+                </button>
+            </div>
 
-  cart.forEach(item => {
-    html += `
-      <div class="cart-item">
-        <span>${item.name}</span>
-        <span>Rp ${item.price}</span>
-      </div>
-    `;
-    total += item.price;
-  });
+            <div class="bg-white rounded-3xl p-6 shadow-sm space-y-4">
+                <div class="flex gap-4 items-start">
+                    <div class="w-10 h-10 rounded-full bg-gray-50 flex items-center justify-center text-gray-500 shrink-0">
+                        <i class="fa-regular fa-clock"></i>
+                    </div>
+                    <div>
+                        <h4 class="text-sm font-semibold">Jam Buka</h4>
+                        <p class="text-xs text-gray-500 mt-1">07.00 - 21.00 WIB</p>
+                    </div>
+                </div>
+                <div class="flex gap-4 items-start">
+                    <div class="w-10 h-10 rounded-full bg-gray-50 flex items-center justify-center text-gray-500 shrink-0">
+                        <i class="fa-solid fa-location-dot"></i>
+                    </div>
+                    <div>
+                        <h4 class="text-sm font-semibold">Lokasi Kami</h4>
+                        <p class="text-xs text-gray-500 mt-1">Jl. Nusantara No. 123,<br>Kota Anda</p>
+                    </div>
+                </div>
+                <div class="flex gap-4 items-start">
+                    <div class="w-10 h-10 rounded-full bg-gray-50 flex items-center justify-center text-gray-500 shrink-0">
+                        <i class="fa-solid fa-shield-halved"></i>
+                    </div>
+                    <div>
+                        <h4 class="text-sm font-semibold">Pembayaran Aman</h4>
+                        <p class="text-xs text-gray-500 mt-1">Transaksi aman & nyaman</p>
+                    </div>
+                </div>
+            </div>
 
-  document.getElementById("items").innerHTML = html;
-  document.getElementById("total").innerText = total;
-}
-
-function toggleCart() {
-  document.getElementById("cart").classList.toggle("active");
-}
-
-function checkout() {
-  let text = "Pesanan saya:%0A";
-
-  cart.forEach(item => {
-    text += `- ${item.name} (Rp ${item.price})%0A`;
-  });
-
-  let total = cart.reduce((sum, i) => sum + i.price, 0);
-  text += `%0ATotal: Rp ${total}`;
-
-  window.open("https://wa.me/628123456789?text=" + text);
-}
-</script>
+        </div>
+    </div>
 
 </body>
 </html>
