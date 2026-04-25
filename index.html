@@ -1,98 +1,33 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Warung Nusantara</title>
-  <link rel="stylesheet" href="style.css" />
 </head>
-<body>
+<body style="font-family:sans-serif">
 
-  <!-- HEADER -->
-  <header class="header">
-    <div class="logo">
-      🍳 Warung Nusantara
-    </div>
-    <div class="cart">
-      🛒 <span id="cart-count">0</span>
-    </div>
-  </header>
+<h1>🍳 Warung Nusantara</h1>
 
-  <!-- HERO -->
-  <section class="hero">
-    <h1>Masakan Rumahan<br>Rasa Istimewa</h1>
-    <p>Masakan segar setiap hari</p>
-    <button class="btn-primary">Pesan Sekarang</button>
-  </section>
+<div>
+  <h3>Nasi Goreng</h3>
+  <p>Rp 20.000</p>
+  <button onclick="order('Nasi Goreng')">Pesan</button>
+</div>
 
-  <!-- KATEGORI -->
-  <section class="categories">
-    <h2>Kategori</h2>
-    <div class="category-list">
-      <button class="active">Semua</button>
-      <button>Nasi</button>
-      <button>Ayam</button>
-      <button>Sayur</button>
-      <button>Minuman</button>
-    </div>
-  </section>
+<div>
+  <h3>Ayam Penyet</h3>
+  <p>Rp 22.000</p>
+  <button onclick="order('Ayam Penyet')">Pesan</button>
+</div>
 
-  <!-- MENU -->
-  <section class="menu">
-    <h2>Menu Pilihan</h2>
+<script>
+function order(menu){
+  window.open(
+    "https://wa.me/628123456789?text=Saya pesan " + menu
+  );
+}
+</script>
 
-    <div class="menu-item">
-      <img src="https://source.unsplash.com/300x200/?indonesian-food" />
-      <div class="menu-info">
-        <h3>Nasi Ayam Penyet</h3>
-        <p>Ayam goreng + sambal khas</p>
-        <div class="menu-bottom">
-          <span>Rp22.000</span>
-          <button onclick="addToCart()">+</button>
-        </div>
-      </div>
-    </div>
-
-    <div class="menu-item">
-      <img src="https://source.unsplash.com/300x200/?fried-rice" />
-      <div class="menu-info">
-        <h3>Nasi Goreng</h3>
-        <p>Telur + ayam + kerupuk</p>
-        <div class="menu-bottom">
-          <span>Rp20.000</span>
-          <button onclick="addToCart()">+</button>
-        </div>
-      </div>
-    </div>
-
-    <div class="menu-item">
-      <img src="https://source.unsplash.com/300x200/?vegetable-soup" />
-      <div class="menu-info">
-        <h3>Sayur Asem</h3>
-        <p>Segar & tradisional</p>
-        <div class="menu-bottom">
-          <span>Rp10.000</span>
-          <button onclick="addToCart()">+</button>
-        </div>
-      </div>
-    </div>
-
-  </section>
-
-  <!-- PROMO -->
-  <section class="promo">
-    <h2>Promo Hari Ini</h2>
-    <p>Diskon 20% jam 10:00 - 14:00</p>
-  </section>
-
-  <!-- FOOTER NAV -->
-  <nav class="bottom-nav">
-    <button class="active">🏠</button>
-    <button>📋</button>
-    <button>🛒</button>
-    <button>👤</button>
-  </nav>
-
-  <script src="script.js"></script>
 </body>
 </html>
