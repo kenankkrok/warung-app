@@ -10,12 +10,10 @@
 
 <header class="header">
   <h2>🍳 Warung Nusantara</h2>
+  <div class="cart-icon" onclick="toggleCart()">
+    🛒 <span id="cart-count">0</span>
+  </div>
 </header>
-
-<section class="hero">
-  <h1>Masakan Rumahan</h1>
-  <p>Enak, Murah, Cepat</p>
-</section>
 
 <section class="menu">
 
@@ -23,23 +21,26 @@
     <img src="https://source.unsplash.com/400x300/?fried-rice">
     <h3>Nasi Goreng</h3>
     <p>Rp 20.000</p>
-    <button onclick="order('Nasi Goreng')">Pesan</button>
+    <button onclick="addToCart('Nasi Goreng',20000)">Tambah</button>
   </div>
 
   <div class="card">
     <img src="https://source.unsplash.com/400x300/?chicken-food">
     <h3>Ayam Penyet</h3>
     <p>Rp 22.000</p>
-    <button onclick="order('Ayam Penyet')">Pesan</button>
+    <button onclick="addToCart('Ayam Penyet',22000)">Tambah</button>
   </div>
 
 </section>
 
-<script>
-function order(menu){
-  window.open("https://wa.me/628123456789?text=Pesan " + menu);
-}
-</script>
+<!-- CART PANEL -->
+<div class="cart-panel" id="cart-panel">
+  <h3>Keranjang</h3>
+  <div id="cart-items"></div>
+  <h4>Total: Rp <span id="total">0</span></h4>
+  <button onclick="checkout()">Checkout</button>
+</div>
 
+<script src="app.js"></script>
 </body>
 </html>
